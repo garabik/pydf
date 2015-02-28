@@ -1,0 +1,2 @@
+?package(pydf):needs=text section=Apps/System\
+  title="pydf" command="/usr/bin/pydf"
