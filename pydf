@@ -59,7 +59,7 @@ def get_terminal_width_termios():
     try:
         lines, cols, xpixels, ypixels = \
             struct.unpack(
-                "HHHH", 
+                "HHHH",
                 fcntl.ioctl(sys.stdout.fileno(),
                 termios.TIOCGWINSZ, s)
                 )
@@ -104,9 +104,8 @@ def find_mountpoint(path):
     return path
 
 
-
 #some default definitions
-colours = {    
+colours = {
             'none'       :    "",
             'default'    :    "\033[0m",
             'bold'       :    "\033[1m",
@@ -161,7 +160,7 @@ FILL_THRESH = 95.0
 FULL_THRESH = 99.0
 
 
-format = [    
+format = [
             ('fs', 10, "l"), ('size', 5, "r"), 
             ('used', 5, "r"), ('avail', 5, "r"), ('perc', 4, "r"),
             ('bar', 0.1, "l"), ('on', 11, "l")
@@ -183,16 +182,16 @@ for conffile in ["/etc/pydfrc", os.environ['HOME']+"/.pydfrc"]:
         exec(compile(open(conffile).read(), conffile, 'exec'))
 
 
-header =    {
-            'fs'     :    "Filesystem",
-            'size'   :    "Size",
-            'used'   :    "Used",
-            'avail'  :    "Avail",
-            'on'     :    "Mounted on",
-            'fstype' :    "Type",
-            'perc'   :    "Use%",
-            'bar'    :    Bar(header=True),
-            }
+header = {
+          'fs'     : "Filesystem",
+          'size'   : "Size",
+          'used'   : "Used",
+          'avail'  : "Avail",
+          'on'     : "Mounted on",
+          'fstype' : "Type",
+          'perc'   : "Use%",
+          'bar'    :  Bar(header=True),
+         }
 
 def sanitize_output(s):
     "sanitize nonprintable characters for printing"
@@ -221,7 +220,7 @@ def out(s):
 
 class DumbStatus:
     "emulates statvfs results with only zero values"
-    f_bsize = f_frsize = f_blocks = f_bfree = f_bavail = f_files = f_ffree = f_favail = f_flag = f_namemax =0
+    f_bsize = f_frsize = f_blocks = f_bfree = f_bavail = f_files = f_ffree = f_favail = f_flag = f_namemax = 0
 
 def hfnum(size, base):
     "human readable number"
@@ -245,7 +244,6 @@ def hfnum(size, base):
         nsize = int(round(1.*size/(base**power)))
     r = str(nsize) + units[power]
     return r
-
 
 def myformat(number, sizeformat, fs_blocksize):
     "format number as file size. fs_blocksize here is a filesysem blocksize"
@@ -274,7 +272,6 @@ def myformat(number, sizeformat, fs_blocksize):
         return str(number)
     else: # this should not happen
         raise ValueError("Impossible error, contact the author, sizeformat="+repr(sizeformat))
-
 
 def manglestring(s, l, pos, fillchar=' '):
     "cut string to fit exactly into l chars"
@@ -433,16 +430,15 @@ def get_row_mp(mp):
                 perc = 0
                 perc_f = '-'
 
-
         info = {
-            'fs'     :    device,
-            'size'   :    size_f,
-            'used'   :    used_f,
-            'avail'  :    avail_f,
-            'on'     :    mp,
-            'fstype' :    fstype,
-            'perc'   :    perc_f,
-            'bar'    :    None,
+            'fs'     : device,
+            'size'   : size_f,
+            'used'   : used_f,
+            'avail'  : avail_f,
+            'on'     : mp,
+            'fstype' : fstype,
+            'perc'   : perc_f,
+            'bar'    : None,
                 }
         current_colour = local_fs_colour
         if is_remote_fs(fstype):
@@ -695,5 +691,4 @@ else:
 
 table = get_table(mp_to_display)
 display_table(table, terminal_width)
-
 
