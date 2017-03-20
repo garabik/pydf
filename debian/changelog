@@ -1,3 +1,10 @@
+pydf (14) unstable; urgency=medium
+
+  * do not colour readonly filesystem in b&w mode, thanks to Dave Vehrs
+    (closes: #851904)
+
+ -- Radovan Garabík <garabik@kassiopeia.juls.savba.sk>  Mon, 20 Mar 2017 10:42:03 +0100
+
 pydf (13) unstable; urgency=low
 
   * added statvfs_block configuration option, to select between

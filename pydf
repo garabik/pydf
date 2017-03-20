@@ -299,7 +299,7 @@ def makecolour(clist):
     return s
 
 def version():
-    return '13'
+    return '14'
 
 def get_all_mountpoints():
     "return all mountpoints in fs"
@@ -672,7 +672,7 @@ if options.sizeformat:
 #    do_total_sum = True
 
 if options.b_w:
-    normal_colour = header_colour = local_fs_colour = remote_fs_colour = special_fs_colour = filled_fs_colour = full_fs_colour = 'none'
+    normal_colour = header_colour = local_fs_colour = remote_fs_colour = readonly_fs_colour = special_fs_colour = filled_fs_colour = full_fs_colour = 'none'
 if options.mounts_file:
     mountfile = options.mounts_file
 
