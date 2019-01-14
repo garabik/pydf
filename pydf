@@ -32,10 +32,11 @@ except TypeError:
     str_center = lambda x, y, z: string.center (x, y).replace(' ', z)
 
 class Bar:
-    def __init__(self, percentage=0, width=2, header=False):
+    def __init__(self, percentage=0, width=2, header=False, psize=0.0):
         self.percentage = percentage
         self.width = width
         self.header = header
+        self.psize = psize
 
     def __len__(self):
         return self.width
@@ -43,11 +44,24 @@ class Bar:
     def __str__(self):
         return self.format(self, 'l')
 
-    def format(self, pos):
+    def format(self, pos, max_psize=None):
         if self.header:
             return ' '*self.width
-        size = int(round(self.percentage*(self.width-2)))
-        return '['+manglestring(size*barchar, self.width-2, pos, bar_fillchar)+']'
+        if max_psize:
+            # scale relative to max physical size
+            #  .---self.width---------------.
+            #  .---bar_w----------.         |
+            #  |.--used_w--.      |         |
+            # "[############......]          "
+            bar_w = int(((self.psize*self.width)/max_psize))
+            used_w = int(round(self.percentage*(bar_w-2)))
+            bar = '['+manglestring(used_w*barchar, bar_w-2, pos, bar_fillchar)+']'
+            spaces = ' '*(self.width - len(bar))
+            return bar + spaces
+        else:
+            # scale each to screen width
+            size = int(round(self.percentage*(self.width-2)))
+            return '['+manglestring(size*barchar, self.width-2, pos, bar_fillchar)+']'
 
 
 def get_terminal_width_termios():
@@ -410,6 +424,7 @@ def get_row_mp(mp):
         inodes_used = inodes_size - inodes_free
 
         if inodes:
+            psize = inodes_size
             size_f = myformat(inodes_size, sizeformat, 1)
             used_f = myformat(inodes_used, sizeformat, 1)
             avail_f = myformat(inodes_avail, sizeformat, 1)
@@ -420,6 +435,7 @@ def get_row_mp(mp):
                 perc = 0
                 perc_f = '-'
         else:
+            psize = size
             size_f = myformat(size, sizeformat, fs_blocksize)
             used_f = myformat(used, sizeformat, fs_blocksize)
             avail_f = myformat(avail, sizeformat, fs_blocksize)
@@ -466,7 +482,7 @@ def get_row_mp(mp):
                 elif perc > FILL_THRESH:
                     current_colour = filled_fs_colour
             if j[0]=='bar':
-                info['bar'] = Bar(perc/100., width)
+                info['bar'] = Bar(perc/100., width, psize=psize)
 
             text = info[j[0]]
             # if there are control or invalid unicode characters in mountpoint names
@@ -510,7 +526,7 @@ def get_table(mps):
     return rows
 
 
-def squeeze_table(table, desired_width):
+def squeeze_table(table, desired_width, scale_bars):
     "squeeze table to fit into width characters"
 
     cols = len(table[0])
@@ -566,21 +582,30 @@ def squeeze_table(table, desired_width):
         # since it will wrap anywway, we might as well display 
         # complete long lines
         new_maxrow = maxrow
+    max_psize = None
+    if scale_bars:
+        # get the max psize when scaling
+        max_psize = 0.0
+        for row in table:
+            for col in range(cols):
+                cell_content = row[col][1]
+                if isinstance(cell_content, Bar):
+                    max_psize = max(max_psize, cell_content.psize)
     for row in table:
         for col in range(cols):
             cell_content = row[col][1]
             if isinstance(cell_content, Bar):
                 cell_content.width += to_stretch
-                formatted_cell_content = cell_content.format(format[col][2])
+                formatted_cell_content = cell_content.format(format[col][2],max_psize)
             else:
                 formatted_cell_content = manglestring(cell_content, new_maxrow[col], format[col][2])
             row[col][1] = formatted_cell_content
 
 
-def display_table(table, terminal_width):
+def display_table(table, terminal_width, scale_bars):
     "display our internal output table"
 
-    squeeze_table(table, terminal_width-1)
+    squeeze_table(table, terminal_width-1, scale_bars)
 
     colsepcol = makecolour(column_separator_colour)
     for row in table:
@@ -641,6 +666,9 @@ parser.add_option("", "--bw",
 #parser.add_option("", "--sum",
 #      action="store_true", dest="do_total_sum", default=False,
 #      help="display sum of all the displayed sizes")
+parser.add_option("-S", "--scale-bars",
+      action="store_const", const='-P', dest="scale_bars",
+      help="scale bars to largest disk size")
 parser.add_option("", "--mounts",
       action="store", dest="mounts_file", type="string",
       help="""File to get mount information from.
@@ -690,5 +718,5 @@ else:
     mp_to_display.sort()
 
 table = get_table(mp_to_display)
-display_table(table, terminal_width)
+display_table(table, terminal_width, options.scale_bars)
 
