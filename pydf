@@ -495,7 +495,7 @@ def is_special_fs(fs):
     "test if fs (as type) is a special one"
     "in addition, a filesystem is special if it has number of blocks equal to 0"
     fs = fs.lower()
-    return fs in [ "tmpfs", "devpts", "devtmpfs", "proc", "sysfs", "usbfs", "devfs", "fdescfs", "linprocfs", "squashfs" ]
+    return fs in [ "tmpfs", "devpts", "devtmpfs", "proc", "sysfs", "usbfs", "devfs", "fdescfs", "linprocfs", "squashfs", "ecryptfs" ]
 
 def get_table(mps):
     "table is a list of rows"
