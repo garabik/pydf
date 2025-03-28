@@ -22,23 +22,26 @@ with red etc...
 pydf recognizes following parameters:
 
   --help                show this help message
+  -v, --version         show version
   -a, --all             include filesystems having 0 blocks
-  -h, --human-readable  print sizes in human readable format (e.g., 1K 234M 2G)
+  -h, --human-readable  print sizes in human readable format (e.g., 1K 234M
+                        2G)
   -H, --si              likewise, but use powers of 1000 not 1024
-  -bBLOCKSIZE, --block-size=BLOCKSIZE
-                        use SIZE-byte blocks
+  -b BLOCKSIZE, --block-size=BLOCKSIZE
+                        use BLOCKSIZE-byte blocks
   -l, --local           limit listing to local filesystems
   -k, --kilobytes       like --block-size=1024
   -m, --megabytes       like --block-size=1048576
   -g, --gigabytes       like --block-size=1073741824
   --blocks              use filesystem native block size
   --bw                  do not use colours
-  --mounts=MOUNTS_FILE  File to get mount information from. On normal linux
-                        system, only /etc/mtab or proc/mounts make sense. Some
-                        other unices use /etc/mnttab. Use /proc/mounts when
-                        /etc/mtab is corrupted or inaccesable  (the output
-                        looks a bit weird in this case).
-  -B, --show-binds      show also mount --bind mounted filesystems
+  --mounts=MOUNTS_FILE  File to get mount information from. On normal Linux
+                        systems only /etc/mtab or /proc/mounts make sense.
+                        Some other Unices use /etc/mnttab. Use /proc/mounts
+                        when /etc/mtab is corrupted or inaccessible  (the
+                        output looks a bit weird in this case).
+  -B, --show-binds      show 'mount --bind' mounts
+  -i, --inodes          show inode instead of block usage
 
 Written by Radovan Garabík <garabik @ kassiopeia.juls.savba.sk>.
 For new versions, look at http://kassiopeia.juls.savba.sk/~garabik/software/pydf/
