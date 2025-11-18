@@ -103,7 +103,7 @@ FULL_THRESH = 99.0
 # be careful not to exceed the size of your screen
 
 
-#format = [    
+#format = [
 #            ('fs', 15, "l"), ('size', 9, "r"), 
 #            ('used', 9, "r"), ('avail', 9, "r"), ('perc', 5, "r"),
 #            ('bar', 8, "l"), ('on', 16, "l")
@@ -112,8 +112,8 @@ FULL_THRESH = 99.0
 # this is somewhat conservative
 # use fixed width for everything, since you want it readable
 # only the bar is specified by percentage, because you want it dynamic
-format = [    
-            ('fs', 10, "l"), ('size', 5, "r"), 
+format = [
+            ('fs', 10, "l"), ('type', 6, "l"), ('size', 5, "r"),
             ('used', 5, "r"), ('avail', 5, "r"), ('perc', 5, "r"),
             ('bar', 0.1, "l"), ('on', 11, "l")
          ]
