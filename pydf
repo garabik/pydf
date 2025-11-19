@@ -367,6 +367,18 @@ def niceprint_fs(fs):
     else:
         return fs
 
+def identify_bind_mounts(mountpoints):
+    by_dev = {}
+    for mp, (device, typ, opts) in mountpoints.items():
+        if device not in by_dev or mp.count('/') < by_dev[device].count('/'):
+            by_dev[device] = mp
+    r = {}
+    for mp, (device, typ, opts) in mountpoints.items():
+        if mp != by_dev[device] and 'bind' not in opts:
+            opts = ['bind'] + opts
+        r[mp] = (device, typ, opts)
+    return r
+
 def get_row_mp(mp):
     # for python3, mp is bytes, not str
     if mp:
@@ -679,6 +691,7 @@ if options.mounts_file:
 terminal_width = get_terminal_width()
 
 mountpoints = get_all_mountpoints()
+mountpoints = identify_bind_mounts(mountpoints)
 
 if args:
     mp_to_display = [find_mountpoint(os.path.realpath(x)) for x in args]
