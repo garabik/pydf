@@ -414,7 +414,7 @@ def get_row_mp(mp):
             used_f = myformat(inodes_used, sizeformat, 1)
             avail_f = myformat(inodes_avail, sizeformat, 1)
             try:
-                perc = round(100.*inodes_used/inodes_size, 1)
+                perc = int(round(100.*inodes_used/inodes_size))
                 perc_f = str(perc)
             except ZeroDivisionError:
                 perc = 0
@@ -424,7 +424,7 @@ def get_row_mp(mp):
             used_f = myformat(used, sizeformat, fs_blocksize)
             avail_f = myformat(avail, sizeformat, fs_blocksize)
             try:
-                perc = round(100.*used/size, 1)
+                perc = int(round(100.*used/size))
                 perc_f = str(perc)
             except ZeroDivisionError:
                 perc = 0
