@@ -114,7 +114,7 @@ colours = {
             'reverse'    :    "\033[7m",
             'concealed'  :    "\033[8m",
 
-            'black'      :    "\033[30m", 
+            'black'      :    "\033[30m",
             'red'        :    "\033[31m",
             'green'      :    "\033[32m",
             'yellow'     :    "\033[33m",
@@ -123,7 +123,7 @@ colours = {
             'cyan'       :    "\033[36m",
             'white'      :    "\033[37m",
 
-            'on_black'   :    "\033[40m", 
+            'on_black'   :    "\033[40m",
             'on_red'     :    "\033[41m",
             'on_green'   :    "\033[42m",
             'on_yellow'  :    "\033[43m",
@@ -161,7 +161,7 @@ FULL_THRESH = 99.0
 
 
 format = [
-            ('fs', 10, "l"), ('size', 5, "r"), 
+            ('fs', 10, "l"), ('size', 5, "r"),
             ('used', 5, "r"), ('avail', 5, "r"), ('perc', 4, "r"),
             ('bar', 0.1, "l"), ('on', 11, "l")
          ]
@@ -523,7 +523,7 @@ def squeeze_table(table, desired_width):
             width = int(width*terminal_width)-1
         minrow.append(width)
 
-    # row of maximal cell sizes 
+    # row of maximal cell sizes
     maxrow = [0]*cols
 
     for row in table:
@@ -563,7 +563,7 @@ def squeeze_table(table, desired_width):
 
     if to_reduce > 0:
         # we were not able to reduce the size enough
-        # since it will wrap anywway, we might as well display 
+        # since it will wrap anywway, we might as well display
         # complete long lines
         new_maxrow = maxrow
     for row in table:
@@ -646,7 +646,7 @@ parser.add_option("", "--mounts",
       help="""File to get mount information from.
 On normal Linux systems only /etc/mtab or /proc/mounts make sense.
 Some other Unices use /etc/mnttab.
-Use /proc/mounts when /etc/mtab is corrupted or inaccessible 
+Use /proc/mounts when /etc/mtab is corrupted or inaccessible
 (the output looks a bit weird in this case).""")
 parser.add_option("-B", "--show-binds",
      action="store_false", dest="hidebinds", default=hidebinds,
