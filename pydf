@@ -671,7 +671,7 @@ if options.sizeformat:
 #if options.do_total_sum:
 #    do_total_sum = True
 
-if options.b_w:
+if options.b_w or os.environ.get('NO_COLOR'):
     normal_colour = header_colour = local_fs_colour = remote_fs_colour = readonly_fs_colour = special_fs_colour = filled_fs_colour = full_fs_colour = 'none'
 if options.mounts_file:
     mountfile = options.mounts_file
