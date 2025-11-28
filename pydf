@@ -84,7 +84,16 @@ def get_terminal_width_resize():
         return None
 
 def get_terminal_width_dumb():
-    return 80
+    width_str = os.environ.get('COLUMNS', '80')
+    try:
+        width = int(width_str)
+    except ValueError:
+        return None
+
+    if not 60 <= width <= 1000:  # a simple sanity check
+        return None
+
+    return width
 
 def get_terminal_width():
     handlers = [get_terminal_width_termios, get_terminal_width_resize, get_terminal_width_dumb]
