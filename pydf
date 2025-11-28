@@ -521,6 +521,7 @@ def is_special_fs(fs):
         "ecryptfs",
         "overlay",
         "efivarfs",
+        "fuse.encfs",
     ]
 
 def get_table(mps):
