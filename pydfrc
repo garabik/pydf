@@ -113,8 +113,8 @@ FULL_THRESH = 99.0
 # use fixed width for everything, since you want it readable
 # only the bar is specified by percentage, because you want it dynamic
 format = [
-            ('fs', 10, "l"), ('type', 6, "l"), ('size', 5, "r"),
-            ('used', 5, "r"), ('avail', 5, "r"), ('perc', 5, "r"),
+            ('fs', 10, "l"),   ('fstype', 6, "l"), ('size', 5, "r"),
+            ('used', 5, "r"),  ('avail', 5, "r"),  ('perc', 5, "r"),
             ('bar', 0.1, "l"), ('on', 11, "l")
          ]
 
