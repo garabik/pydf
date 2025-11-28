@@ -83,7 +83,7 @@ def get_terminal_width_resize():
     else:
         return None
 
-def get_terminal_width_dumb():
+def get_terminal_width_columns():
     width_str = os.environ.get('COLUMNS', '80')
     try:
         width = int(width_str)
@@ -95,8 +95,11 @@ def get_terminal_width_dumb():
 
     return width
 
+def get_terminal_width_dumb():
+    return 80
+
 def get_terminal_width():
-    handlers = [get_terminal_width_termios, get_terminal_width_resize, get_terminal_width_dumb]
+    handlers = [get_terminal_width_termios, get_terminal_width_resize, get_terminal_width_columns, get_terminal_width_dumb]
     for handler in handlers:
         width = handler()
         if width:
