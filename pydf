@@ -427,6 +427,13 @@ def get_row_mp(mp):
             avail_f = myformat(inodes_avail, sizeformat, 1)
             try:
                 perc = int(round(100.*inodes_used/inodes_size))
+
+                # Do not show 100% when not full and not 0% when not empty
+                if perc == 100 and inodes_used < inodes_size:
+                    perc = 99
+                elif perc == 0 and inodes_used > 0:
+                    perc = 1
+
                 perc_f = str(perc)
             except ZeroDivisionError:
                 perc = 0
@@ -437,6 +444,13 @@ def get_row_mp(mp):
             avail_f = myformat(avail, sizeformat, fs_blocksize)
             try:
                 perc = int(round(100.*used/size))
+
+                # Do not show 100% when not full and not 0% when not empty
+                if perc == 100 and used < size:
+                    perc = 99
+                elif perc == 0 and used > 0:
+                    perc = 1
+
                 perc_f = str(perc)
             except ZeroDivisionError:
                 perc = 0
