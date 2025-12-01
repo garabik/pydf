@@ -325,7 +325,7 @@ def makecolour(clist):
     return s
 
 def version():
-    return '14'
+    return '15'
 
 def get_all_mountpoints():
     "return all mountpoints in fs"

@@ -45,3 +45,9 @@ pydf recognizes following parameters:
 
 Written by Radovan Garabík <garabik @ kassiopeia.juls.savba.sk>.
 For new versions, look at http://kassiopeia.juls.savba.sk/~garabik/software/pydf/
+
+
+Similar utilities:
+ * dysk - advanced utility to display disk space usage, written in Rust: https://dystroy.org/dysk/
+ * di - disk information utility: https://diskinfo-di.sourceforge.io/
+ * dfc - colorful df clone written in C: https://github.com/rolinh/dfc
