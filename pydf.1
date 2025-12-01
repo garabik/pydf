@@ -58,7 +58,7 @@ use filesystem native block size
 .B \-\-bw
 do not use colours
 .TP
-.B --mounts=FILE
+.B \-\-mounts=FILE
 file to get mount information from.
 On normal linux system, only /etc/mtab or /proc/mounts make sense.
 Use /proc/mounts when /etc/mtab is corrupted or inaccessible 
@@ -66,10 +66,13 @@ Use /proc/mounts when /etc/mtab is corrupted or inaccessible
 .TP
 .B \-B, \-\-show\-binds
 Show also mount --bind mounted filesystems.
+.TP
+.B \-S, \-\-scale\-bars
+Show bar sizes scaled to the largest filesystem size
 .SH "BUGS"
 POSIX mandates to have f_blocks and f_bfree to be the number in units of f_frsize. However,
 many programs are buggy, including df(1) from coreutils, and Linux kernel often lies and reports
-f_frsize == f_bsize. Some filesystem and some other operating systems don't, and then the size 
+f_frsize == f_bsize. Some filesystem and some other operating systems don't, and then the size
 reported by pydf is incorrect. As a stopgap measure, there is a parameter
 .I statvfs_block
 in

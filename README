@@ -42,6 +42,7 @@ pydf recognizes following parameters:
                         output looks a bit weird in this case).
   -B, --show-binds      show 'mount --bind' mounts
   -i, --inodes          show inode instead of block usage
+  -S, --scale-bars      show bar sizes scaled to the largest filesystem size
 
 Written by Radovan Garabík <garabik @ kassiopeia.juls.savba.sk>.
 For new versions, look at http://kassiopeia.juls.savba.sk/~garabik/software/pydf/
