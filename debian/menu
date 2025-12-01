@@ -1,2 +1,2 @@
-?package(pydf):needs=text section=Apps/System\
+?package(pydf):needs="text" section="Applications/System/Monitoring"\
   title="pydf" command="/usr/bin/pydf"

@@ -1,21 +1,40 @@
-pydf (14) unstable; urgency=medium
+pydf (14+git20170320.5996c59-1) unstable; urgency=medium
 
-  * do not colour readonly filesystem in b&w mode, thanks to Dave Vehrs
-    (closes: #851904)
+  * Team upload.
+  * New upstream version
+    Closes: #851904
+  * Maintain package in Package Salvage team
+    Closes: #1086190
+  * Add Homepage
+    Closes: #1082112
+  * d/copyright: DEP5
+  * Standards-Version: 4.7.0 (routine-update)
+  * debhelper-compat 13 (routine-update)
+  * Remove trailing whitespace in debian/changelog (routine-update)
+  * Rules-Requires-Root: no (routine-update)
+  * Non-native package
+  * Use pybuild build system
+  * debian/menu
+     - Quote strings
+     - Section Applications/System/Monitoring
+  * Install manpage
+  * Remove unneeded debian/dirs
 
- -- Radovan Garabík <garabik@kassiopeia.juls.savba.sk>  Mon, 20 Mar 2017 10:42:03 +0100
+ -- Andreas Tille <tille@debian.org>  Tue, 19 Nov 2024 14:38:40 +0100
 
-pydf (13) unstable; urgency=low
+pydf (12+nmu1) unstable; urgency=medium
 
-  * added statvfs_block configuration option, to select between
-    statvfs.F_BSIZE and statvfs.F_FRSIZE
+  * Non-maintainer upload.
+  * Clean-up end of changelog.
+  * Removed Python 2 support.
+  * Properly package with pybuild.
 
- -- Radovan Garabík <garabik@kassiopeia.juls.savba.sk>  Sat, 10 Jan 2015 19:35:34 +0100
+ -- Thomas Goirand <zigo@debian.org>  Fri, 16 Aug 2019 12:05:44 +0200
 
 pydf (12) unstable; urgency=low
 
-  * better python3 compatibility; escape control and invalid characters in
-    mountpoint names
+  * better python3 compatibility
+  * escape control and invalid characters in mountpoint names
 
  -- Radovan Garabík <garabik@kassiopeia.juls.savba.sk>  Fri, 26 Dec 2014 22:35:40 +0100
 
@@ -55,8 +74,8 @@ pydf (9) unstable; urgency=low
 
 pydf (8) unstable; urgency=low
 
-  * run pylint & pychecker -- fix some previously unnoticed bugs 
-  * treat "special" filesystems and those with 0 blocks the same 
+  * run pylint & pychecker -- fix some previously unnoticed bugs
+  * treat "special" filesystems and those with 0 blocks the same
     (i.e. do not display them unless -a option is given)
   * add fuse.sshfs to the list of networked filesystems
 
@@ -107,7 +126,7 @@ pydf (2) unstable; urgency=low
 
 pydf (1) unstable; urgency=low
 
-  * show read only mounted filesystems in different colour (thanks 
+  * show read only mounted filesystems in different colour (thanks
     to Michał J. Gajda and Bastian Kleineidam)
   * add binary-arch target to debian/rules (closes: #395633)
   * work around python statvfs 32-bit overflow (closes: #396298)
@@ -124,7 +143,7 @@ pydf (0.9.9) unstable; urgency=low
 pydf (0.9.8.5) unstable; urgency=low
 
   * added sshfs to the list of remote filesystems
-  * added udf to the list of filesystem that are always full 
+  * added udf to the list of filesystem that are always full
     (thanks to Benoît Dejean)
 
  -- Radovan Garabík <garabik@kassiopeia.juls.savba.sk>  Fri,  2 Sep 2005 23:12:41 +0200
@@ -132,7 +151,7 @@ pydf (0.9.8.5) unstable; urgency=low
 pydf (0.9.8.4) unstable; urgency=low
 
   * mountfile can be a list now, pydf will try each of them
-  * fallback to parsing mount(1) output if no mountfile is available 
+  * fallback to parsing mount(1) output if no mountfile is available
     (this adds support for many different operating systems, e.g. MacOSX)
 
  -- Radovan Garabík <garabik@kassiopeia.juls.savba.sk>  Mon, 22 Aug 2005 11:01:01 +0200
@@ -153,7 +172,7 @@ pydf (0.9.8.2) unstable; urgency=low
 
 pydf (0.9.8.1) unstable; urgency=low
 
-  * change forgotten FILL_THRESH value from ridiculously low value back 
+  * change forgotten FILL_THRESH value from ridiculously low value back
     to 0.95, thanks to Lasse Pommerenke for noticing (closes: #318968)
 
  -- Radovan Garabík <garabik@kassiopeia.juls.savba.sk>  Tue, 19 Jul 2005 09:34:41 +0200
@@ -265,7 +284,7 @@ pydf (0.5) unstable; urgency=low
 
 pydf (0.4) unstable; urgency=low
 
-  * network filesystems with block size 0 are now recognized as network 
+  * network filesystems with block size 0 are now recognized as network
     filesystems, not as special filesystems
   * workaround for older python interpreter without os.statvfs function
 
@@ -285,7 +304,3 @@ pydf (0.2) unstable; urgency=low
   * Initial Release.
 
  -- Radovan Garabik <garabik@melkor.dnp.fmph.uniba.sk>  Thu, 26 Aug 1999 19:16:29 +0200
-
-Local variables:
-mode: debian-changelog
-End:
