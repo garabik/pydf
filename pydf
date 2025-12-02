@@ -1,35 +1,12 @@
-#! /usr/bin/python
+#! /usr/bin/python3
 
 import sys, os, re, string, struct, unicodedata
 from optparse import OptionParser
 
 from math import log
 
-if not 'lexists' in dir(os.path):
-    # for python < 2.4
-    # will not give the same result for broken symbolic links, but who cares...
-    os.path.lexists = os.path.exists
+import subprocess
 
-if sys.version_info[0] < 3:
-    # getoutput() and getstatusoutput() methods have
-    # been moved from commands to the subprocess module
-    # with Python >= 3.x
-    import commands as my_subprocess
-else:
-    import subprocess as my_subprocess
-
-str_ljust = str.ljust
-str_rjust = str.rjust
-str_center = str.center
-
-
-# again an ugly hack for python < 2.4
-try:
-    str_ljust('dummy', 1, '.')
-except TypeError:
-    str_ljust  = lambda x, y, z: string.ljust  (x, y).replace(' ', z)
-    str_rjust  = lambda x, y, z: string.rjust  (x, y).replace(' ', z)
-    str_center = lambda x, y, z: string.center (x, y).replace(' ', z)
 
 class Bar:
     def __init__(self, percentage=0, width=2, header=False, psize=0.0):
@@ -82,7 +59,7 @@ def get_terminal_width_termios():
     return cols
 
 def get_terminal_width_resize():
-    status, output = my_subprocess.getstatusoutput('resize')
+    status, output = subprocess.getstatusoutput('resize')
     if status!=0: # error in running resize
         return None
     c = output.split('\n')
@@ -228,8 +205,8 @@ def sanitize_output(s):
         # surrogate characters encoding non-decodable bytes in the names of mountpoints
         elif 0xdc80 <= ord(c) <= 0xdcff:
             r += r'\x%02x' % (ord(c)-0xdc00)
-        # in python2, we have str, not unicode here - just give up and do not test for strange unicode characters
-        elif sys.version_info[0] >= 3 and (unicodedata.category(c)[0]=='C' or unicodedata.category(c) in ('Zl', 'Zp')):
+        # test for strange unicode characters
+        elif unicodedata.category(c)[0]=='C' or unicodedata.category(c) in ('Zl', 'Zp'):
             if ord(c) <= 0xffff:
                 r += r'\u%04X' % ord(c)
             else:
@@ -302,11 +279,11 @@ def myformat(number, sizeformat, fs_blocksize):
 def manglestring(s, l, pos, fillchar=' '):
     "cut string to fit exactly into l chars"
     if pos == "r":
-        ns = str_rjust(s, l, fillchar)
+        ns = s.rjust(l, fillchar)
     elif pos == "l":
-        ns = str_ljust(s, l, fillchar)
+        ns = s.ljust(l, fillchar)
     elif pos == "c":
-        ns = str_center(s, l, fillchar)
+        ns = s.center(l, fillchar)
     else:
         raise ValueError('Error in manglestring')
     if len(ns) > l:
@@ -342,7 +319,7 @@ def get_all_mountpoints():
                 break
         else:
             # fallback, first try to parse mount output
-            status, mout = my_subprocess.getstatusoutput('mount')
+            status, mout = subprocess.getstatusoutput('mount')
             if status !=0:
                 return dummy_result
             mlines = mout.split('\n')
@@ -363,16 +340,11 @@ def get_all_mountpoints():
             else:
                 return dummy_result
 
-    mountlines = f.readlines() # bytes in python3
+    mountlines = f.readlines() # bytes!
 
-    # convert to representable strings (for python3)
-    # unfortunately, we cannot keep it as bytes, because of a known bug
-    # in python3 forcing us to use string, not bytes as filename for os.statvfs
-    if sys.version_info[0]>=3:
-        errhandler = 'surrogateescape'
-        if sys.version_info[1]<1:
-            errhandler = 'replace'
-        mountlines = [x.decode(sys.stdin.encoding, errhandler) for x in mountlines]
+    # convert to representable strings
+    errhandler = 'surrogateescape'
+    mountlines = [x.decode(sys.stdin.encoding, errhandler) for x in mountlines]
     r = {}
     for l in mountlines:
         spl = l.split()
@@ -387,7 +359,7 @@ def get_all_mountpoints():
 
 def niceprint_fs(fs):
     "print LVM as nice symlink"
-    matchObj = re.search( r'^\/dev\/mapper\/(.*)-(.*)', str(fs)) # will fail in python3if fs canot be converted to unicode
+    matchObj = re.search( r'^\/dev\/mapper\/(.*)-(.*)', str(fs)) # will fail if fs cannot be converted to unicode
     if matchObj:
         return "/dev/" + matchObj.group(1) + "/" + matchObj.group(2)
     else:
@@ -406,7 +378,6 @@ def identify_bind_mounts(mountpoints):
     return r
 
 def get_row_mp(mp):
-    # for python3, mp is bytes, not str
     if mp:
         if mp in mountpoints:
             device, fstype, opts = mountpoints[mp]
