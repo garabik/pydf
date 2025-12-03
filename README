@@ -45,7 +45,7 @@ pydf recognizes following parameters:
   -S, --scale-bars      show bar sizes scaled to the largest filesystem size
 
 Written by Radovan Garabík <garabik @ kassiopeia.juls.savba.sk>.
-For new versions, look at http://kassiopeia.juls.savba.sk/~garabik/software/pydf/
+For new versions, look at https://kassiopeia.juls.savba.sk/~garabik/software/pydf.html
 
 
 Similar utilities:
