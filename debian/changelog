@@ -1,3 +1,9 @@
+pydf (15-1) unstable; urgency=low
+
+  * new release, acknowledging previous NMU and adopting the packaging changes
+
+ -- Radovan Garabík <garabik@kassiopeia.juls.savba.sk>  Tue, 09 Dec 2025 10:50:33 +0100
+
 pydf (14+git20170320.5996c59-1) unstable; urgency=medium
 
   * Team upload.
