@@ -4,11 +4,11 @@ Source: https://github.com/garabik/pydf
 Files-Excluded: debian/
 
 Files: *
-Copyright: 1999-2017 Radovan Garabík <garabik @ kassiopeia.juls.savba.sk>
+Copyright: 1999-2025 Radovan Garabík <garabik @ kassiopeia.juls.savba.sk>
 License: public_domain
 
 Files: debian/*
-Copyright: 1999-2017 Radovan Garabík <garabik @ kassiopeia.juls.savba.sk>
+Copyright: 1999-2025 Radovan Garabík <garabik @ kassiopeia.juls.savba.sk>
 License: public_domain
 
 License: public_domain
