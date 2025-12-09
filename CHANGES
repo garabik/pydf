@@ -4,6 +4,7 @@ pydf (15)
   * modify bind mounts logic to follow new kernel behaviour
   * add several special (i.e. not shown by default) filesystems
   * add support for COLUMNS and NO_COLOR environmental variables
+  * this is the last version supporting Python 2
 
 pydf (14) unstable; urgency=medium
 
