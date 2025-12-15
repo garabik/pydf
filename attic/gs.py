@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 # get terminal size
 # from resize(1)
@@ -6,11 +6,11 @@
 #
 # do not use
 
-import os, time, termios
+import os, sys, time, termios
 from termios import ICRNL, IUCLC, ICANON, ECHO, CS8, VMIN, VTIME, TCSANOW, TCSADRAIN, TCSAFLUSH
 
-getsize = "\0337\033[r\033[999;999H\0336n\033[18t"
-restoreemu = "\0338"
+getsize = b"\0337\033[r\033[999;999H\0336n\033[18t"
+restoreemu = b"\0338"
 ttyfd = os.open('/dev/tty', os.O_RDWR)
 
 tioorig = termios.tcgetattr(ttyfd)
@@ -26,4 +26,4 @@ os.write(ttyfd, getsize)
 x = os.read(ttyfd, len(getsize))
 os.write(ttyfd, restoreemu)
 termios.tcsetattr(ttyfd, TCSADRAIN, tioorig)
-print `x`
+sys.stdout.buffer.write(x)

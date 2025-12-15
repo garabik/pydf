@@ -1,7 +1,4 @@
-You must have python installed (at least version 2.3, or version 2.2.
-with optparse package).
-
-Python3 is recommended, though.
+You must have Python 3 installed (at least version 3.1).
 
 edit first line of pydf to point to your python interpreter,
 copy pydf somewhere into your path, 
