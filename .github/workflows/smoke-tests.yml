@@ -33,6 +33,26 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
+    - name: Install runtime dependencies
+      run: |
+        pip3 install --user \
+            build \
+            twine
+
+    - name: Build Python package
+      run: |
+        set -x
+        python3 -m build
+        tar tvf dist/pydf-*.tar.gz
+        unzip -l dist/pydf-*-py3-none-any.whl
+        twine check --strict dist/pydf-*
+
+    - name: Install Python package
+      run: |
+        set -x
+        pip3 install --user .
+        echo ~/.local/bin | tee "${GITHUB_PATH}"
+
     - name: Run smoke tests
       run: |
         export PS4=$'\n# '
