@@ -1,7 +1,7 @@
 [project]
 name = "pydf"
 description = "df(1) clone with colour output"
-version = "15"
+version = "15"  # keep in sync with function "version" in file "pydf"
 readme = { file = "README", content-type = "text/plain" }
 license = "CC-PDDC"
 license-files = ["COPYING"]
