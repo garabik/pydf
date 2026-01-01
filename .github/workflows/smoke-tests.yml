@@ -57,20 +57,20 @@ jobs:
       run: |
         export PS4=$'\n# '
         set -x
-        ./pydf
-        ./pydf --help
-        ./pydf --version
-        ./pydf --all
-        ./pydf --human-readable
-        ./pydf --si
-        ./pydf --block-size=1
-        ./pydf --local
-        ./pydf --kilobytes
-        ./pydf --megabytes
-        ./pydf --gigabytes
-        ./pydf --blocks
-        ./pydf --bw
-        ./pydf --scale-bars
-        ./pydf --mounts=/etc/mtab
-        ./pydf --show-binds
-        ./pydf --inodes
+        pydf
+        pydf --help
+        pydf --version
+        pydf --all
+        pydf --human-readable
+        pydf --si
+        pydf --block-size=1
+        pydf --local
+        pydf --kilobytes
+        pydf --megabytes
+        pydf --gigabytes
+        pydf --blocks
+        pydf --bw
+        pydf --scale-bars
+        pydf --mounts=/etc/mtab
+        pydf --show-binds
+        pydf --inodes
