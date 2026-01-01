@@ -1,0 +1,47 @@
+[project]
+name = "pydf"
+description = "df(1) clone with colour output"
+version = "15"
+readme = { file = "README", content-type = "text/plain" }
+license = "CC-PDDC"
+license-files = ["COPYING"]
+authors = [
+    { name = "Radovan Garabík", email = "garabik@kassiopeia.juls.savba.sk" },
+]
+requires-python = ">=3.10"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: End Users/Desktop",
+    "Intended Audience :: System Administrators",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: System",
+    "Topic :: System :: Filesystems",
+    "Topic :: System :: Systems Administration",
+    "Topic :: Utilities",
+]
+keywords = ["df", "disk space", "colours", "filesystems"]
+
+[project.urls]
+"Homepage" = "https://github.com/garabik/pydf"
+"Git Repository" = "https://github.com/garabik/pydf"
+"Issue Tracker" = "https://github.com/garabik/pydf/issues"
+
+[tool.setuptools.data-files]
+"bin" = ["pydf"]
+"etc" = ["pydfrc"]  # best effort
+"share/man/man1" = ["pydf.1"]
+
+[tool.setuptools.packages.find]
+include = []
+
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
