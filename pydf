@@ -355,6 +355,9 @@ def get_all_mountpoints():
         device, mp, typ, opts = spl[0:4]
         opts = opts.split(',')
         r[mp] = (device, typ, opts)
+
+    f.close()
+
     return r
 
 def niceprint_fs(fs):
