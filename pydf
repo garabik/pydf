@@ -368,11 +368,13 @@ def niceprint_fs(fs):
 def identify_bind_mounts(mountpoints):
     by_dev = {}
     for mp, (device, typ, opts) in mountpoints.items():
+        if not '/' in device:  # e.g. pseudo device "tmpfs"
+            continue
         if device not in by_dev or mp.count('/') < by_dev[device].count('/'):
             by_dev[device] = mp
     r = {}
     for mp, (device, typ, opts) in mountpoints.items():
-        if mp != by_dev[device] and 'bind' not in opts:
+        if mp != by_dev.get(device, mp) and 'bind' not in opts:
             opts = ['bind'] + opts
         r[mp] = (device, typ, opts)
     return r
