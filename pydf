@@ -302,7 +302,7 @@ def makecolour(clist):
     return s
 
 def version():
-    return '15'
+    return '15'  # keep in sync with file "pyproject.toml"
 
 def get_all_mountpoints():
     "return all mountpoints in fs"
