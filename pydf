@@ -415,9 +415,9 @@ def get_row_mp(mp):
         inodes_size = status.f_files
         inodes_avail = status.f_favail
         if (size==0 or is_special_fs(fstype)) and not allfss:
-            return
+            return None
         if bind and hidebinds:
-            return
+            return None
         used = size-free
         inodes_used = inodes_size - inodes_free
 
