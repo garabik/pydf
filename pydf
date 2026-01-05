@@ -667,7 +667,7 @@ parser.add_option("-a", "--all",
       help="include filesystems having 0 blocks")
 parser.add_option("-h", "--human-readable",
       action="store_const", const='-h', dest="sizeformat",
-      help="print sizes in human readable format (e.g., 1K 234M 2G)")
+      help="print sizes in human readable format (e.g. 1K 234M 2G)")
 parser.add_option("-H", "--si",
       action="store_const", const='-H', dest="sizeformat",
       help="likewise, but use powers of 1000 not 1024")
