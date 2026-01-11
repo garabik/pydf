@@ -2,7 +2,7 @@
 name = "pydf"
 description = "df(1) clone with colour output"
 version = "15"  # keep in sync with function "version" in file "pydf"
-readme = { file = "README", content-type = "text/plain" }
+readme = "README.md"
 license = "CC-PDDC"
 license-files = ["COPYING"]
 authors = [
