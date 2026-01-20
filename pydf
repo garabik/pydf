@@ -1,7 +1,7 @@
 #! /usr/bin/python3
 
 import sys, os, re, string, struct, unicodedata
-from optparse import OptionParser
+from argparse import ArgumentParser
 
 from math import log
 
@@ -655,91 +655,92 @@ def display_table(table, terminal_width, scale_bars):
 
 # the fun begins here
 
-parser = OptionParser(usage="usage: %prog [options] arg", add_help_option=False)
+parser = ArgumentParser(add_help=False)
+parser.version = f'{parser.prog} version ' + version()
 
-parser.version = '%prog version ' + version()
+parser.add_argument("--help", action="help", help="show this help message")
+parser.add_argument("-v", "--version", action="version", help="show version")
 
-parser.add_option("", "--help", action="help", help="show this help message")
-parser.add_option("-v", "--version", action="version", help="show version")
-
-parser.add_option("-a", "--all",
+parser.add_argument("-a", "--all",
       action="store_true", dest="show_all", default=False,
       help="include filesystems having 0 blocks")
-parser.add_option("-h", "--human-readable",
+parser.add_argument("-h", "--human-readable",
       action="store_const", const='-h', dest="sizeformat",
       help="print sizes in human readable format (e.g. 1K 234M 2G)")
-parser.add_option("-H", "--si",
+parser.add_argument("-H", "--si",
       action="store_const", const='-H', dest="sizeformat",
       help="likewise, but use powers of 1000 not 1024")
-parser.add_option("-b", "--block-size",
-      action="store", dest="blocksize", default=0, type="int",
+parser.add_argument("-b", "--block-size",
+      action="store", dest="blocksize", default=0, type=int,
       help="use BLOCKSIZE-byte blocks")
-parser.add_option("-l", "--local",
+parser.add_argument("-l", "--local",
       action="store_true", dest="local_only", default=False,
       help="limit listing to local filesystems")
-parser.add_option("-k", "--kilobytes",
+parser.add_argument("-k", "--kilobytes",
       action="store_const", const='-k', dest="sizeformat",
       help="like --block-size=1024")
-parser.add_option("-m", "--megabytes",
+parser.add_argument("-m", "--megabytes",
       action="store_const", const='-m', dest="sizeformat",
       help="like --block-size=1048576")
-parser.add_option("-g", "--gigabytes",
+parser.add_argument("-g", "--gigabytes",
       action="store_const", const='-g', dest="sizeformat",
       help="like --block-size=1073741824")
-parser.add_option("", "--blocks",
+parser.add_argument("--blocks",
       action="store_const", const='--blocks', dest="sizeformat",
       help="use filesystem native block size")
-parser.add_option("", "--bw",
+parser.add_argument("--bw",
       action="store_true", dest="b_w", default=False,
       help="do not use colours")
-#parser.add_option("", "--sum",
+#parser.add_argument("--sum",
 #      action="store_true", dest="do_total_sum", default=False,
 #      help="display sum of all the displayed sizes")
-parser.add_option("-S", "--scale-bars",
+parser.add_argument("-S", "--scale-bars",
       action="store_const", const='-P', dest="scale_bars",
       help="scale bars to largest disk size")
-parser.add_option("", "--mounts",
-      action="store", dest="mounts_file", type="string",
+parser.add_argument("--mounts",
+      action="store", dest="mounts_file", type=str,
       help="""File to get mount information from.
 On normal Linux systems only /etc/mtab or /proc/mounts make sense.
 Some other Unices use /etc/mnttab.
 Use /proc/mounts when /etc/mtab is corrupted or inaccessible
 (the output looks a bit weird in this case).""")
-parser.add_option("-B", "--show-binds",
+parser.add_argument("-B", "--show-binds",
      action="store_false", dest="hidebinds", default=hidebinds,
      help="show 'mount --bind' mounts")
-parser.add_option("-i", "--inodes",
+parser.add_argument("-i", "--inodes",
      action="store_true", dest="inodes", default=False,
      help="show inode instead of block usage")
+parser.add_argument("mountpoints", nargs="*",
+     help="list of mountpoints to display (default: all)")
 
-(options, args) = parser.parse_args()
+args = parser.parse_args()
 
-blocksize = options.blocksize
-allfss = options.show_all
-localonly = options.local_only
-hidebinds = options.hidebinds
-inodes = options.inodes
+blocksize = args.blocksize
+allfss = args.show_all
+localonly = args.local_only
+hidebinds = args.hidebinds
+inodes = args.inodes
 if inodes:
     header["size"] = "Nodes"
 
-if options.sizeformat:
-    sizeformat = options.sizeformat
+if args.sizeformat:
+    sizeformat = args.sizeformat
 
-#if options.do_total_sum:
+#if args.do_total_sum:
 #    do_total_sum = True
 
-if options.b_w or os.environ.get('NO_COLOR'):
+if args.b_w or os.environ.get('NO_COLOR'):
     normal_colour = header_colour = local_fs_colour = remote_fs_colour = readonly_fs_colour = special_fs_colour = filled_fs_colour = full_fs_colour = 'none'
-if options.mounts_file:
-    mountfile = options.mounts_file
+if args.mounts_file:
+    mountfile = args.mounts_file
 
 terminal_width = get_terminal_width()
 
 mountpoints = get_all_mountpoints()
 mountpoints = identify_bind_mounts(mountpoints)
 
-if args:
-    mp_to_display = [find_mountpoint(os.path.realpath(x)) for x in args]
+if args.mountpoints:
+    mp_to_display = [find_mountpoint(os.path.realpath(x)) for x in args.mountpoints]
     mp_to_display = [x for x in mp_to_display if x is not None]
 else:
     mp_to_display = list(mountpoints.keys())
@@ -748,5 +749,5 @@ else:
     mp_to_display.sort()
 
 table = get_table(mp_to_display)
-display_table(table, terminal_width, options.scale_bars)
+display_table(table, terminal_width, args.scale_bars)
 
