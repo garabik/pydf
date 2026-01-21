@@ -40,16 +40,21 @@ with red etc...
 **pydf** recognizes following parameters:
 
 ```console
-# pydf --help
-Usage: pydf [options] arg
+# COLUMNS=80 pydf --help
+usage: pydf [--help] [-v] [-a] [-h] [-H] [-b BLOCKSIZE] [-l] [-k] [-m] [-g]
+            [--blocks] [--bw] [-S] [--mounts MOUNTS_FILE] [-B] [-i]
+            [mountpoints ...]
 
-Options:
+positional arguments:
+  mountpoints           list of mountpoints to display (default: all)
+
+options:
   --help                show this help message
   -v, --version         show version
   -a, --all             include filesystems having 0 blocks
   -h, --human-readable  print sizes in human readable format (e.g. 1K 234M 2G)
   -H, --si              likewise, but use powers of 1000 not 1024
-  -b BLOCKSIZE, --block-size=BLOCKSIZE
+  -b, --block-size BLOCKSIZE
                         use BLOCKSIZE-byte blocks
   -l, --local           limit listing to local filesystems
   -k, --kilobytes       like --block-size=1024
@@ -58,7 +63,7 @@ Options:
   --blocks              use filesystem native block size
   --bw                  do not use colours
   -S, --scale-bars      scale bars to largest disk size
-  --mounts=MOUNTS_FILE  File to get mount information from. On normal Linux
+  --mounts MOUNTS_FILE  File to get mount information from. On normal Linux
                         systems only /etc/mtab or /proc/mounts make sense.
                         Some other Unices use /etc/mnttab. Use /proc/mounts
                         when /etc/mtab is corrupted or inaccessible (the
