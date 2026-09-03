@@ -215,6 +215,16 @@ def sanitize_output(s):
             r += c
     return r
 
+def unescape_mount_field(s):
+    """Decode the octal escapes used by getmntent(3) in mount tables."""
+    escapes = {
+        r'\040': ' ',
+        r'\011': '\t',
+        r'\012': '\n',
+        r'\134': '\\',
+    }
+    return re.sub(r'\\(?:040|011|012|134)', lambda m: escapes[m.group()], s)
+
 def out(s):
     try:
         sys.stdout.write(s)
@@ -353,6 +363,8 @@ def get_all_mountpoints():
             print(repr(l))
             continue
         device, mp, typ, opts = spl[0:4]
+        device = unescape_mount_field(device)
+        mp = unescape_mount_field(mp)
         opts = opts.split(',')
         r[mp] = (device, typ, opts)
 
@@ -750,4 +762,3 @@ else:
 
 table = get_table(mp_to_display)
 display_table(table, terminal_width, args.scale_bars)
-
