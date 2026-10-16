@@ -41,7 +41,7 @@ with red etc...
 
 ```console
 # COLUMNS=80 pydf --help
-usage: pydf [--help] [-v] [-a] [-h] [-H] [-b BLOCKSIZE] [-l] [-k] [-m] [-g]
+usage: pydf [-?] [-v] [-a] [-h] [-H] [-b BLOCKSIZE] [-l] [-k] [-m] [-g]
             [--blocks] [--bw] [-S] [--mounts MOUNTS_FILE] [-B] [-i]
             [mountpoints ...]
 
@@ -49,7 +49,7 @@ positional arguments:
   mountpoints           list of mountpoints to display (default: all)
 
 options:
-  --help                show this help message
+  -?, --help            show this help message
   -v, --version         show version
   -a, --all             include filesystems having 0 blocks
   -h, --human-readable  print sizes in human readable format (e.g. 1K 234M 2G)
