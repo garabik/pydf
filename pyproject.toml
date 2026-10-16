@@ -8,7 +8,7 @@ license-files = ["COPYING"]
 authors = [
     { name = "Radovan Garabík", email = "garabik@kassiopeia.juls.savba.sk" },
 ]
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Environment :: Console",
@@ -16,11 +16,11 @@ classifiers = [
     "Intended Audience :: System Administrators",
     "Operating System :: POSIX :: Linux",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3.15",
     "Programming Language :: Python :: 3 :: Only",
     "Topic :: System",
     "Topic :: System :: Filesystems",
